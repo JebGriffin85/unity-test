@@ -19,15 +19,25 @@ void Update()
     change = Vector3.zero;
     change.x = Input.GetAxisRaw("Horizontal") * Time.deltaTime * speed;
     change.y = Input.GetAxisRaw("Vertical") * Time.deltaTime * speed;
+    UpdateAnimationAndMove();
+}
 
+void UpdateAnimationAndMove()
+{
     if (change != Vector3.zero) {
         transform.Translate(new Vector3(change.x, change.y));
         animator.SetFloat("moveX", change.x);
         animator.SetFloat("moveY", change.y);
+        animator.SetBool("moving", true);
+    } else 
+    {
+        animator.SetBool("moving", false);
     }
+
 }
 
-    void MoveCharacter() {
+    void MoveCharacter() 
+    {
         myRigidbody.MovePosition(
            transform.position + change * speed * Time.deltaTime
         );
